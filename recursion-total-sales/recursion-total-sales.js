@@ -12,37 +12,49 @@
 //
 // EXAMPLE:
 //
-// var salesTeam = {
-//   name: 'Arnaldo McDermott',
-//   individualSales: 14,
-//   manages: [
-//     {
-//       name: 'Lavina Romaguera',
-//       individualSales: 15,
-//       manages: [
-//         {
-//           name: 'Glen Hodkiewicz',
-//           individualSales: 12,
-//           manages: []
-//         }
-//       ]
-//     },
-//     {
-//       name: 'Rey Hills',
-//       individualSales: 19,
-//       manages: []
-//     }
-//   ]
-// };
-//
-//
-// totalSales(salesTeam)
+
 //
 // returns 60
 
 
 
 var totalSales = function (salesTeam) {
-  // All your code in this function body
+  var keys = Object.keys(salesTeam);
+  var sum = 0;
+  keys.forEach(function(key) {
+  	if (key === 'individualSales') {
+  		sum += salesTeam[key];
+  	} else if (key === 'manages' && salesTeam[key].length > 0) {
+  		for (var i = 0; i < salesTeam[key].length; i++) {
+  			sum += totalSales(salesTeam[key][i]);
+  		}
+  	}
+  });
+  return sum;
 };
 
+var salesTeam = {
+  name: 'Arnaldo McDermott',
+  individualSales: 14,
+  manages: [
+    {
+      name: 'Lavina Romaguera',
+      individualSales: 15,
+      manages: [
+        {
+          name: 'Glen Hodkiewicz',
+          individualSales: 12,
+          manages: []
+        }
+      ]
+    },
+    {
+      name: 'Rey Hills',
+      individualSales: 19,
+      manages: []
+    }
+  ]
+};
+
+
+console.log(totalSales(salesTeam));
