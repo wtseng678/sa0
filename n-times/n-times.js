@@ -8,20 +8,31 @@
  * HINT: n-times is the generalized version of once - for example,
  * passing 1 into n-times is the equivalent of the once function.
  *
- * var add = function(a, b) {
- *   return a + b;
- * }
+ * 
  *
- * var add3Times = nTimes(3, add);
- * add3Times(1, 5) // returns 6
- * add3Times(4, 9) // returns 13
- * add3Times(6, 5) // returns 11
- * add3Times(2, 3) // returns 11
- * add3Times(9, 8) // returns 11
+
  *
  */
 
 var nTimes = function(n, func) {
-  // Your code here.
+  	var timesCalled = 0;
+    var result;
+    return function() {
+      if (timesCalled < n) {
+        result = func.apply(this, arguments);
+        timesCalled++;
+      }
+      return result;
+     };
 };
 
+var add = function(a, b) {
+   return a + b;
+};
+
+var add3Times = nTimes(3, add);
+console.log(add3Times(1, 5)); // returns 6
+console.log(add3Times(4, 9)); // returns 13
+console.log(add3Times(6, 5)); // returns 11
+console.log(add3Times(2, 3)); // returns 11
+console.log(add3Times(9, 8)); // returns 11
