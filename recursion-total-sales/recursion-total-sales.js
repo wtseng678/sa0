@@ -19,9 +19,8 @@
 
 
 var totalSales = function (salesTeam) {
-  var keys = Object.keys(salesTeam);
   var sum = 0;
-  keys.forEach(function(key) {
+  Object.keys(salesTeam).forEach(function(key) {
   	if (key === 'individualSales') {
   		sum += salesTeam[key];
   	} else if (key === 'manages' && salesTeam[key].length > 0) {
